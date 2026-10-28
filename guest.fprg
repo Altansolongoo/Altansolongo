@@ -1,0 +1,230 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="4.2">
+    <attributes>
+        <attribute name="name" value="biy daalt"/>
+        <attribute name="authors" value="NITRO"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2026-10-28 09:34:05 PM"/>
+        <attribute name="created" value="TklUUk87TEFQVE9QLTFWS0o2MkFROzIwMjYtMTAtMjg7MDc6Mzc6MTQgUE07MjcyNg=="/>
+        <attribute name="edited" value="TklUUk87TEFQVE9QLTFWS0o2MkFROzIwMjYtMTAtMjg7MDk6MzQ6MDUgUE07MzsyODM1"/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="n" type="Integer" array="False" size=""/>
+            <declare name="i" type="Integer" array="False" size=""/>
+            <declare name="j" type="Integer" array="False" size=""/>
+            <declare name="best" type="Integer" array="False" size=""/>
+            <declare name="sumCredit" type="Integer" array="False" size=""/>
+            <declare name="failed" type="Integer" array="False" size=""/>
+            <declare name="sumPoint" type="Real" array="False" size=""/>
+            <declare name="gpa" type="Real" array="False" size=""/>
+            <declare name="Name" type="String" array="True" size="10"/>
+            <declare name="Score" type="Real" array="True" size="10"/>
+            <assign variable="sumPoint" expression="0"/>
+            <assign variable="sumCredit" expression="0"/>
+            <assign variable="failed" expression="0"/>
+            <do expression="n &lt; 5 or n &gt; 10">
+                <output expression="&quot;&#1061;&#1080;&#1095;&#1101;&#1101;&#1083;&#1080;&#1081;&#1085; &#1090;&#1086;&#1086; (5-10): &quot;" newline="True"/>
+                <input variable="n"/>
+                <if expression="n &lt; 5 or n &gt; 10">
+                    <then>
+                        <output expression="&quot;&#1041;&#1091;&#1088;&#1091;&#1091;! 5-10 &#1093;&#1086;&#1086;&#1088;&#1086;&#1085;&#1076; &#1086;&#1088;&#1091;&#1091;&#1083;&#1085;&#1072; &#1091;&#1091;.&quot;" newline="True"/>
+                    </then>
+                    <else/>
+                </if>
+            </do>
+            <declare name="Credit" type="Integer" array="True" size="10"/>
+            <declare name="Used" type="Integer" array="True" size="10"/>
+            <declare name="Letter" type="String" array="True" size="10"/>
+            <declare name="Point" type="Real" array="True" size="10"/>
+            <for variable="i" start="0" end="n-1" direction="inc" step="1">
+                <output expression="&quot;&#1061;&#1080;&#1095;&#1101;&#1101;&#1083;&#1080;&#1081;&#1085; &#1085;&#1101;&#1088;: &quot;" newline="True"/>
+                <input variable="Name[i]"/>
+                <do expression="Score[i] &lt; 0 or Score[i] &gt; 100">
+                    <output expression="&quot;&#1054;&#1085;&#1086;&#1086; (0-100): &quot;" newline="True"/>
+                    <input variable="Score[i]"/>
+                    <if expression="Score[i] &lt; 0 or Score[i] &gt; 100">
+                        <then>
+                            <output expression="&quot;&#1041;&#1091;&#1088;&#1091;&#1091;! 0-100 &#1093;&#1086;&#1086;&#1088;&#1086;&#1085;&#1076; &#1086;&#1088;&#1091;&#1091;&#1083;&#1085;&#1072; &#1091;&#1091;.&quot;" newline="True"/>
+                        </then>
+                        <else/>
+                    </if>
+                </do>
+                <do expression="Credit[i] &lt; 1 or Credit[i] &gt; 6">
+                    <output expression="&quot;&#1050;&#1088;&#1077;&#1076;&#1080;&#1090; (1-6): &quot;" newline="True"/>
+                    <input variable="Credit[i]"/>
+                    <if expression="Credit[i] &lt; 1 or Credit[i] &gt; 6">
+                        <then>
+                            <output expression="&quot;&#1041;&#1091;&#1088;&#1091;&#1091;! 1-6 &#1093;&#1086;&#1086;&#1088;&#1086;&#1085;&#1076; &#1086;&#1088;&#1091;&#1091;&#1083;&#1085;&#1072; &#1091;&#1091;.&quot;" newline="True"/>
+                        </then>
+                        <else/>
+                    </if>
+                </do>
+                <assign variable="Point[i]" expression="GradeInfo(Score[i])"/>
+                <assign variable="Letter[i]" expression="GradeLetter(Score[i])"/>
+                <assign variable="sumPoint" expression="sumPoint + Point[i] * Credit[i]"/>
+                <assign variable="sumCredit" expression="sumCredit + Credit[i]"/>
+                <if expression="Letter[i] == &quot;F&quot;">
+                    <then>
+                        <assign variable="failed" expression="failed + 1"/>
+                    </then>
+                    <else/>
+                </if>
+            </for>
+            <assign variable="gpa" expression="sumPoint / sumCredit"/>
+            <output expression="&quot;&#1053;&#1080;&#1081;&#1090; &#1082;&#1088;&#1077;&#1076;&#1080;&#1090;: &quot; &amp; sumCredit" newline="True"/>
+            <output expression="&quot;GPA: &quot; &amp; Int(gpa * 100 + 0.5) / 100" newline="True"/>
+            <output expression="&quot;&#1061;&#1080;&#1095;&#1101;&#1101;&#1083; | &#1054;&#1085;&#1086;&#1086; | &#1050;&#1088;&#1077;&#1076;&#1080;&#1090; | &#1198;&#1089;&#1101;&#1075; | Point&quot;" newline="True"/>
+            <for variable="i" start="0" end="n-1" direction="inc" step="1">
+                <output expression="Name[i] &amp; &quot; | &quot; &amp; Score[i] &amp; &quot; | &quot; &amp; Credit[i] &amp; &quot; | &quot; &amp; Letter[i] &amp; &quot; | &quot; &amp; Point[i]" newline="True"/>
+            </for>
+            <if expression="gpa &gt;= 3.5 and failed == 0">
+                <then>
+                    <output expression="&quot;&#1054;&#1085;&#1094; &#1089;&#1091;&#1088;&#1072;&#1083;&#1094;&#1072;&#1075;&#1095;&quot;" newline="True"/>
+                </then>
+                <else>
+                    <if expression="gpa &gt;= 2.0 and failed == 0">
+                        <then>
+                            <output expression="&quot;&#1061;&#1101;&#1074;&#1080;&#1081;&#1085; &#1089;&#1091;&#1088;&#1072;&#1083;&#1094;&#1072;&#1075;&#1095;&quot;" newline="True"/>
+                        </then>
+                        <else>
+                            <output expression="&quot;&#1040;&#1085;&#1093;&#1072;&#1072;&#1088;&#1072;&#1093; &#1096;&#1072;&#1072;&#1088;&#1076;&#1083;&#1072;&#1075;&#1072;&#1090;&#1072;&#1081;&quot;" newline="True"/>
+                        </else>
+                    </if>
+                </else>
+            </if>
+            <for variable="i" start="0" end="n-1" direction="inc" step="1">
+                <assign variable="Used[i]" expression="0"/>
+            </for>
+            <output expression="&quot;--- &#1061;&#1072;&#1084;&#1075;&#1080;&#1081;&#1085; &#1257;&#1085;&#1076;&#1257;&#1088; 3 &#1076;&#1199;&#1085; ---&quot;" newline="True"/>
+            <for variable="j" start="1" end="3" direction="inc" step="1">
+                <assign variable="best" expression="-1"/>
+                <for variable="i" start="0" end="n-1" direction="inc" step="1">
+                    <if expression="Used[i] == 0">
+                        <then>
+                            <if expression="best == -1">
+                                <then>
+                                    <assign variable="best" expression="i"/>
+                                </then>
+                                <else>
+                                    <if expression="Score[best] &lt; Score[i]">
+                                        <then>
+                                            <assign variable="best" expression="i"/>
+                                        </then>
+                                        <else/>
+                                    </if>
+                                </else>
+                            </if>
+                        </then>
+                        <else/>
+                    </if>
+                </for>
+                <assign variable="Used[best]" expression="1"/>
+                <output expression="j &amp; &quot;. &quot; &amp; Name[best] &amp; &quot;  &quot; &amp; Score[best] &amp; &quot;  (&quot; &amp; Letter[best] &amp; &quot;)&quot;" newline="True"/>
+            </for>
+        </body>
+    </function>
+    <function name="GradeInfo" type="Real" variable="point">
+        <parameters>
+            <parameter name="onoo" type="Real" array="False"/>
+        </parameters>
+        <body>
+            <declare name="point" type="Real" array="False" size=""/>
+            <if expression="onoo &gt;= 90">
+                <then>
+                    <assign variable="point" expression="4.0"/>
+                </then>
+                <else>
+                    <if expression="onoo &gt;= 85">
+                        <then>
+                            <assign variable="point" expression="3.5"/>
+                        </then>
+                        <else>
+                            <if expression="onoo &gt;= 80">
+                                <then>
+                                    <assign variable="point" expression="3.0"/>
+                                </then>
+                                <else>
+                                    <if expression="onoo &gt;= 75">
+                                        <then>
+                                            <assign variable="point" expression="2.5"/>
+                                        </then>
+                                        <else>
+                                            <if expression="onoo &gt;= 70">
+                                                <then>
+                                                    <assign variable="point" expression="2.0"/>
+                                                </then>
+                                                <else>
+                                                    <if expression="onoo &gt;= 60">
+                                                        <then>
+                                                            <assign variable="point" expression="1.0"/>
+                                                        </then>
+                                                        <else>
+                                                            <assign variable="point" expression="0.0"/>
+                                                        </else>
+                                                    </if>
+                                                </else>
+                                            </if>
+                                        </else>
+                                    </if>
+                                </else>
+                            </if>
+                        </else>
+                    </if>
+                </else>
+            </if>
+        </body>
+    </function>
+    <function name="GradeLetter" type="String" variable="letter">
+        <parameters>
+            <parameter name="onoo" type="Real" array="False"/>
+        </parameters>
+        <body>
+            <declare name="letter" type="String" array="False" size=""/>
+            <if expression="onoo &gt;= 90">
+                <then>
+                    <assign variable="letter" expression="&quot;A&quot;"/>
+                </then>
+                <else>
+                    <if expression="onoo &gt;= 85">
+                        <then>
+                            <assign variable="letter" expression="&quot;B+&quot;"/>
+                        </then>
+                        <else>
+                            <if expression="onoo &gt;= 80">
+                                <then>
+                                    <assign variable="letter" expression="&quot;B&quot;"/>
+                                </then>
+                                <else>
+                                    <if expression="onoo &gt;= 75">
+                                        <then>
+                                            <assign variable="letter" expression="&quot;C+&quot;"/>
+                                        </then>
+                                        <else>
+                                            <if expression="onoo &gt;= 70">
+                                                <then>
+                                                    <assign variable="letter" expression="&quot;C&quot;"/>
+                                                </then>
+                                                <else>
+                                                    <if expression="onoo &gt;= 60">
+                                                        <then>
+                                                            <assign variable="letter" expression="&quot;D&quot;"/>
+                                                        </then>
+                                                        <else>
+                                                            <assign variable="letter" expression="&quot;F&quot;"/>
+                                                        </else>
+                                                    </if>
+                                                </else>
+                                            </if>
+                                        </else>
+                                    </if>
+                                </else>
+                            </if>
+                        </else>
+                    </if>
+                </else>
+            </if>
+        </body>
+    </function>
+</flowgorithm>
